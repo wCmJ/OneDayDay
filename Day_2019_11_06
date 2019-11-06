@@ -1,0 +1,42 @@
+single thread server model:
+    non-blocking IO + IO multiplexing --- Reactor： 
+        sturcture:
+            event loop + event-driven + event callback
+        examples:
+            lighttpd 
+            libevent, libev
+            ACE, Poco C++ libraries
+            Java NIO
+            POE(Perl)
+            Twisted(Python)
+        disadvantage：
+            callback must be non-blocking, for NIO that has request-response model, it will split business logic and is not easy to maintain.
+        
+    
+multiple thread server model:
+    one thread(one loop) for a request + blocking IO
+                                
+    thread pool + blocking IO
+    
+    non-blocking IO + IO multiplexing
+    
+    Leader/Follower
+    
+1.runtime of task is 20s, use a process
+2.runtime of task is 10 ms, use a thread    
+3.runtime of task is 200us many times, use one thread/thread pool
+
+only use single thread:
+1.use fork
+2.cpu limit
+    cause this thread only use one core, in multi-core system, it will not impact other process and whole system.
+    
+
+
+
+
+    
+    
+    
+    
+    
