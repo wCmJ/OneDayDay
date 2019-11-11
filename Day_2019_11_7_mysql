@@ -1,0 +1,66 @@
+wget https://dev.mysql.com/get/Downloads/MySQL-5.7/mysql-5.7.26-1.el7.x86_64.rpm-bundle.tar
+tar -xvf mysql-5.7.26-1.el7.x86_64.rpm-bundle.tar
+yum list installed | grep mysql | awk '{print $1}' | xargs yum erase -y
+rpm -ivh mysql-...-common-....rpm
+rpm -ivh mysql-...-libs-...rpm
+rpm -ivh mysql-...-client-....rpm
+rpm -ivh mysql-...-server-....rpm
+rpm -qa | grep mysql
+cat /etc/my.cnf
+service mysqld start/systemctl start mysqld
+pgrep mysqld
+cat /var/log/mysqld.log | grep password
+set global validate_password_policy=0;
+set global validata_password_length=4;
+alter user 'root'@'localhost' identified by 'newpass';
+show databases;
+use mysql;
+show tables;
+select version();
+? data types;
+? contents;
+? functions;
+
+DDL:
+    create/drop/alter
+    
+DML:
+    insert/delete/update/select
+    
+DCL:
+    grant/revoke
+    
+    
+create table tb_college(collid int auto_increment, collname varchar(50) not null, collmaster varchar(50) not null, primary key (collid));
+create table tb_student(stuid int not null, stuname varchar(20) not null, stusex boolean default 1, collid int not null, primary key (stuid), foreign key (collid) references tb_college (collid));
+foreign key (collid) references tb_college(collid);
+delete from tb_student where stuid=1001;
+update tb_student set stuname='yangguo',stuaddr='changsha' where stuid=1001;
+insert into table () values(),();
+select * from table;
+create user 'root'@'%' identified by '123456';
+grant all privileges on *.* to 'root'@'%' with grant option;
+create user 'hellokitty'@'%' identified by '123123';
+grant all privileges on school.* to 'hellokitty'@'%';
+revoke insert, delete, update on school.* from 'hellokitty'@'%';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
