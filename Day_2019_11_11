@@ -1,0 +1,36 @@
+Linux文件描述符：
+    0:标准输入
+    1:标准输出
+    2:标准错误
+    新打开的文件描述符从3开始，利用C++的RAII可以解决串话的问题
+    所谓串话：一个线程打开一个fd=7的文件，在操作期间，另一个线程关闭了此文件，且打开了另一个文件，其fd也为7，导致第一个线程正在非法操纵文件。
+    
+生命周期和程序一样长的变量，可以直接使用全局对象或者做成main()的栈上对象。
+
+在非阻塞网络编程中，场景一：
+    从 某个tcp连接 收到一个request，程序开始处理这个request。处理需要花一定时间，为了避免耽误处理其他request，记住了发来request的tcp连接，
+    在某个线程池中处理这个请求，待处理完成后发送response给该tcp连接。在处理过程中，客户端断开了该连接。另一客户端刚好创建了新连接b。
+    所以不能只记住该tcp连接的文件描述符，还要持有封装socket连接的tcpconnection对象，保证处理request期间tcp连接的描述符不会被关闭。
+    
+    为了防止访问失效的对象或者发送网络串话，使用shared_ptr来管理对象的生命期。
+    
+定时器：
+    1.Linux计时函数
+        time/time_t 秒
+        ftime/struct timeb 毫秒
+        gettimeofday/struct timeval 微秒
+        clock_gettime/struct timespec 纳秒
+        
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
